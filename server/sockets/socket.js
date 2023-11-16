@@ -20,15 +20,18 @@ io.on('connection', (client) => {
         users.addPerson( client.id, data.name, data.room );
 
         client.broadcast.to(data.room).emit( 'listConnectedPerson', users.getPeopleRoom( data.room ));
+        client.broadcast.to(data.room).emit('createMessage', createMessage('Administrador', `${data.name} se unio`));
+        
         callback( users.getPeopleRoom( data.room) );
     });
 
-    client.on( 'createMessage', (data) => {
+    client.on( 'createMessage', ( data, callback ) => {
 
         let person = users.getPerson( client.id)
 
         let message = createMessage( person.name, data.message );
-        client.broadcast.to(person.room).emit( 'createMessage', message );
+        client.broadcast.to(person.room).emit('createMessage', message );
+        callback( message ); 
     })
 
     client.on('disconnect', () => {
