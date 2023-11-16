@@ -20,7 +20,7 @@ io.on('connection', (client) => {
         users.addPerson( client.id, data.name, data.room );
 
         client.broadcast.to(data.room).emit( 'listConnectedPerson', users.getPeopleRoom( data.room ));
-        callback( users.getPeopleRoom(data.room) );
+        callback( users.getPeopleRoom( data.room) );
     });
 
     client.on( 'createMessage', (data) => {

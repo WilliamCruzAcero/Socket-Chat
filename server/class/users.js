@@ -30,7 +30,7 @@ class Users {
 
         let personDeleted = this.getPerson(id);
 
-        this. people = this.people.filter( person => person.id != id );
+        this.people = this.people.filter( person => person.id != id );
 
         return personDeleted;
     }
